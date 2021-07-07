@@ -459,7 +459,7 @@ function getBuildArgs(inputs, shaTag) {
         }
         if (inputs.repoCache) {
             args.push('--cache-from', `type=local,src=${cache_1.buildxCachePath}`);
-            args.push('--cache-to', `type=local,src=${cache_1.buildxNewCachePath}`);
+            args.push('--cache-to', `type=local,dest=${cache_1.buildxNewCachePath}`);
         }
         args.push(inputs.context);
         return args;
