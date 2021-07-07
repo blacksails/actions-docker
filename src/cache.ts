@@ -8,7 +8,6 @@ export const buildxCachePath = '/tmp/.buildx-cache';
 export const buildxNewCachePath = '/tmp/.buildx-cache-new';
 
 export async function restore(inputs: Inputs): Promise<void> {
-  info(inputs.repoCache);
   if (inputs.repoCache) {
     startGroup('☀ Restoring cache...');
     await restoreCache(

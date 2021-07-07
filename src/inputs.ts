@@ -1,5 +1,5 @@
 import csvparse from 'csv-parse/lib/sync';
-import {getInput} from '@actions/core';
+import {debug, getInput} from '@actions/core';
 import {context} from '@actions/github';
 import {getECRPassword, isECRRepository} from './aws';
 
@@ -21,7 +21,6 @@ export interface Inputs {
 }
 
 export async function getInputs(): Promise<Inputs> {
-  debug(getInput('repo-cache'));
   const inputs: Inputs = {
     buildArgs: await getInputList('build-args'),
     builder: getInput('builder'),
