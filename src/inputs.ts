@@ -21,6 +21,7 @@ export interface Inputs {
 }
 
 export async function getInputs(): Promise<Inputs> {
+  debug(getInput('repo-cache'));
   const inputs: Inputs = {
     buildArgs: await getInputList('build-args'),
     builder: getInput('builder'),
