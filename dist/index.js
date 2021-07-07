@@ -354,7 +354,7 @@ function restore(inputs) {
     return __awaiter(this, void 0, void 0, function* () {
         if (inputs.repoCache) {
             core_1.startGroup('☀ Restoring cache...');
-            yield cache_1.restoreCache([exports.buildxCachePath], getRepoCacheKey(inputs), getRepoCacheRestoreKeys(inputs));
+            yield cache_1.restoreCache([exports.buildxCachePath], yield getRepoCacheKey(inputs), getRepoCacheRestoreKeys(inputs));
             core_1.info('Restored cache.');
             core_1.endGroup();
         }
@@ -367,7 +367,7 @@ function save(inputs) {
             core_1.startGroup('❄ Saving cache...');
             yield io_1.rmRF(exports.buildxCachePath);
             yield io_1.mv(exports.buildxNewCachePath, exports.buildxCachePath);
-            yield cache_1.saveCache([exports.buildxCachePath], getRepoCacheKey(inputs));
+            yield cache_1.saveCache([exports.buildxCachePath], yield getRepoCacheKey(inputs));
             core_1.info('Saved cache.');
             core_1.endGroup();
         }
@@ -378,7 +378,9 @@ function getRepoCacheRestoreKeys(inputs) {
     return [`${inputs.repoCacheKey}-`];
 }
 function getRepoCacheKey(inputs) {
-    return `${inputs.repoCacheKey}-${git.headSHA()}`;
+    return __awaiter(this, void 0, void 0, function* () {
+        return `${inputs.repoCacheKey}-${yield git.headSHA()}`;
+    });
 }
 
 

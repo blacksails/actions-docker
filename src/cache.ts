@@ -12,7 +12,7 @@ export async function restore(inputs: Inputs): Promise<void> {
     startGroup('☀ Restoring cache...');
     await restoreCache(
       [buildxCachePath],
-      getRepoCacheKey(inputs),
+      await getRepoCacheKey(inputs),
       getRepoCacheRestoreKeys(inputs)
     );
     info('Restored cache.');
@@ -25,7 +25,7 @@ export async function save(inputs: Inputs): Promise<void> {
     startGroup('❄ Saving cache...');
     await rmRF(buildxCachePath);
     await mv(buildxNewCachePath, buildxCachePath);
-    await saveCache([buildxCachePath], getRepoCacheKey(inputs));
+    await saveCache([buildxCachePath], await getRepoCacheKey(inputs));
     info('Saved cache.');
     endGroup();
   }
@@ -35,6 +35,6 @@ function getRepoCacheRestoreKeys(inputs: Inputs): string[] {
   return [`${inputs.repoCacheKey}-`];
 }
 
-function getRepoCacheKey(inputs: Inputs): string {
-  return `${inputs.repoCacheKey}-${git.headSHA()}`;
+async function getRepoCacheKey(inputs: Inputs): Promise<string> {
+  return `${inputs.repoCacheKey}-${await git.headSHA()}`;
 }
